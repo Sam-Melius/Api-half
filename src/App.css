@@ -71,3 +71,7 @@ section li {
 label {
   display: block;
 }
+
+.pokemon img {
+  width:100px
+}
