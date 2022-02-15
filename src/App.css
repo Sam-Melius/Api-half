@@ -72,6 +72,6 @@ label {
   display: block;
 }
 
-.pokemon img {
+.pokemon img, .yelp img {
   width:100px
 }
