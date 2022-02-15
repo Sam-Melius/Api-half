@@ -4,7 +4,7 @@ import BusinessesList from './BusinessesList';
 export default function YelpSearch() {
   const [businesses, setBusinesses] = useState([]);
   const [search, setSearch] = useState('portland or usa');
-  const [loading, setLoading] = useState(false);
+  const [setLoading] = useState(false);
     // you'll need to track your yelp search results, the loading state, and a form field for location with a default value.
 
   async function handleYelpSubmit(e) {

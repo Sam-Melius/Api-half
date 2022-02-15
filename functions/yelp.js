@@ -2,7 +2,7 @@ const fetch = require('node-fetch');
 
 require('dotenv').config();
 
-exports.handler = async (event, context) => {
+exports.handler = async (event) => {
   try {
     const response = await fetch(`https://api.yelp.com/v3/businesses/search?location=${event.queryStringParameters.search}`, {
       headers : {
@@ -23,7 +23,7 @@ exports.handler = async (event, context) => {
       body: JSON.stringify(json.businesses),
     };
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return {
       statusCode: 500,
       body: JSON.stringify({ error: 'Failed fetching data' }),
