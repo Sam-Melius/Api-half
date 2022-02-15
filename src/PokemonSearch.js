@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PokemonList from './PokemonList';
 
 
 export default function PokemonSearch() {
@@ -30,12 +31,7 @@ export default function PokemonSearch() {
         {/* add inputs/labels for city name, state, and country, using all the things we need with react forms. Don't forget to use the value property to sync these up with the default values in react state */}
         <button>Get pokemon</button>
       </form>
-      <div>
-        {pokemon.map((poke, i) => <div key={poke.pokemon + i}>
-          <p>{poke.pokemon}</p>
-          <img src={poke.url_image} />
-        </div>)}
-      </div>
+      <PokemonList pokemon={pokemon} />
       {/* Make a PokemonList component to import and use here. Use a ternery to display a loading spinner (make a <Spinner /> component for this) if the data is still loading. */}
     </section>
   );
