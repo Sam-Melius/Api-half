@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import PokemonList from './PokemonList';
+import Spinner from './Spinner';
 
 
 export default function PokemonSearch() {
   const [pokemon, setPokemon] = useState([]);
   const [search, setSearch] = useState('Pikachu');
-  const [setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
       // you'll need to track your pokemon search results, the loading state, and one form field: name. For this form field, set a real initial values (like 'pikachu') so the form populates with a default value.
   
   async function handlePokemonSubmit(e) {
@@ -31,7 +32,11 @@ export default function PokemonSearch() {
         {/* add inputs/labels for city name, state, and country, using all the things we need with react forms. Don't forget to use the value property to sync these up with the default values in react state */}
         <button>Get pokemon</button>
       </form>
-      <PokemonList pokemon={pokemon} />
+      {
+        loading
+          ? <Spinner />
+          : <PokemonList pokemon={pokemon} />
+      }
       {/* Make a PokemonList component to import and use here. Use a ternery to display a loading spinner (make a <Spinner /> component for this) if the data is still loading. */}
     </section>
   );
