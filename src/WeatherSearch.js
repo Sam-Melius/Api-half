@@ -27,15 +27,15 @@ export default function WeatherSearch() {
     <section className='weather'>
       {/* make the fetch on submit */}
       <form onSubmit={handleWeatherSubmit}>
-            Search weather for a city
+            Search for weather:
         <label>City
-          <input onChange={e => setCity(e.target.value)} value={city} />
+          <input onChange={e => setCity(e.target.value)} />
         </label>
         <label>State
-          <input onChange={e => setState(e.target.value)} value={state} />
+          <input onChange={e => setState(e.target.value)} />
         </label>
         <label>Country
-          <input onChange={e => setCountry(e.target.value)} value={country} />
+          <input onChange={e => setCountry(e.target.value)} />
         </label>
         
         {/* add inputs/labels for city name, state, and country, using all the things we need with react forms. Don't forget to use the value property to sync these up with the default values in react state */}

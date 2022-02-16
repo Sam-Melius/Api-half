@@ -12,7 +12,7 @@ exports.handler = async (event) => {
     const geoJson = await geoResponse.json();
     const latitude = geoJson[0].lat;
     const longitude = geoJson[0].lon;
-    console.log(geoJson);
+    
     
     const weatherResponse = await fetch(`http://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=${process.env.WEATHER_KEY}`);
     
