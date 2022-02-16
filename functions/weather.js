@@ -3,18 +3,19 @@ const fetch = require('node-fetch');
 require('dotenv').config();
 
 exports.handler = async (event) => {
+  const { city, state, country } = event.queryStringParameters;
   try {
-    const geoResponse = await fetch(`http://api.openweathermap.org/geo/1.0/direct?=${event.queryStringParameters.search}&limit=1&appid=${process.env.WEATHER_KEY}`);
+    const geoResponse = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city},${state},${country}&limit=1&appid=${process.env.WEATHER_KEY}`);
     // grab the city, state, and country from the request's query parameters
     // here is an example from the netlify docs:
     // https://functions.netlify.com/playground/#hello%2C-%7Bname%7D 
-    const json = await geoResponse.json();
+    const geoJson = await geoResponse.json();
+    const latitude = geoJson(0).lat;
+    const longitude = geoJson(0).lon;
     
     
+    const weatherResponse = await fetch(`http://api.openweathermap.org/geo/2.5/onecall?lat=${latitude}&units=imperial&lon${longitude}&appid=${process.env.WEATHER_KEY}`);
     
-    const weatherResponse = await fetch(`http://api.openweathermap.org/geo/2.5/onecall?lat=${latitude}&${longitude}&appid=${event.queryStringParameters.search}&limit=1&appid=${process.env.WEATHER_KEY}`);
-    const latitude = json(0).lat;
-    const longitude = json(0).lon;
     // tragicly, we cannot just pass the city name to this API. it wants a latitude and longitude for the weather
     // consult the yelp docs to figure out how to use a city, state, and country to make a request and get the latitude and longitude
     // https://openweathermap.org/api/geocoding-api
@@ -29,7 +30,7 @@ exports.handler = async (event) => {
       body: JSON.stringify(weatherJson),
     };
   } catch (error) {
-    console.log(error);
+    
     return {
       statusCode: 500,
       body: JSON.stringify({ error: 'Failed fetching data' }),
