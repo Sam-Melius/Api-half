@@ -4,9 +4,9 @@ import Spinner from './Spinner';
 
 export default function WeatherSearch() {
   const [forecast, setForecast] = useState([]);
-  const [city, setCity] = useState('');
-  const [state, setState] = useState('');
-  const [country, setCountry] = useState('');
+  const [city, setCity] = useState('phoenix');
+  const [state, setState] = useState('az');
+  const [country, setCountry] = useState('usa');
   const [loading, setLoading] = useState(false);
       // you'll need to track your weather search results, the loading state, and a form field for location with a default value.
   
@@ -14,11 +14,11 @@ export default function WeatherSearch() {
     e.preventDefault();
 
     setLoading(true);
-    const response = await fetch(`/.netlify/functions/weather-endpoint?city=${city}&state=${state}&country=${country}`);
+    const response = await fetch(`/.netlify/functions/weather?city=${city}&state=${state}&country=${country}`);
        //  set the loading state to true
        //  use fetch to make a request to your netlify weather function. Be sure to pass the location as a query param in the URL
     const json = await response.json();
-    setForecast(json);
+    setForecast(json.daily);
     setLoading(false);
        //  put the jsonified data in state and set the loading state to false
   }
@@ -28,14 +28,14 @@ export default function WeatherSearch() {
       {/* make the fetch on submit */}
       <form onSubmit={handleWeatherSubmit}>
             Search weather for a city
-        <label>
-          <input onChange={e => setCity(e.target.value)} />
+        <label>City
+          <input onChange={e => setCity(e.target.value)} value={city} />
         </label>
-        <label>
-          <input onChange={e => setState(e.target.value)} />
+        <label>State
+          <input onChange={e => setState(e.target.value)} value={state} />
         </label>
-        <label>
-          <input onChange={e => setCountry(e.target.value)} />
+        <label>Country
+          <input onChange={e => setCountry(e.target.value)} value={country} />
         </label>
         
         {/* add inputs/labels for city name, state, and country, using all the things we need with react forms. Don't forget to use the value property to sync these up with the default values in react state */}

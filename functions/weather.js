@@ -10,11 +10,11 @@ exports.handler = async (event) => {
     // here is an example from the netlify docs:
     // https://functions.netlify.com/playground/#hello%2C-%7Bname%7D 
     const geoJson = await geoResponse.json();
-    const latitude = geoJson(0).lat;
-    const longitude = geoJson(0).lon;
+    const latitude = geoJson[0].lat;
+    const longitude = geoJson[0].lon;
+    console.log(geoJson);
     
-    
-    const weatherResponse = await fetch(`http://api.openweathermap.org/geo/2.5/onecall?lat=${latitude}&units=imperial&lon${longitude}&appid=${process.env.WEATHER_KEY}`);
+    const weatherResponse = await fetch(`http://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=${process.env.WEATHER_KEY}`);
     
     // tragicly, we cannot just pass the city name to this API. it wants a latitude and longitude for the weather
     // consult the yelp docs to figure out how to use a city, state, and country to make a request and get the latitude and longitude
